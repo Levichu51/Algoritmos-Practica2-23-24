@@ -1,0 +1,260 @@
+Segunda práctica de algoritmos. Ordenación por shell e inserción.
+A 20 de octubre de 2023
+
+Autores de la práctica:
+- Levi Barros García
+- Raúl Meijide Couto 
+- Ángel Villamor Martínez
+
+
+
+
+
+- Introducción:
+
+En esta práctica vamos a realizar el estudio de los algoritmos de ordenación por inserción y de ordenación por shell. El algoritmo por inserción consiste en la ordenación de los vectores de números seleccionando el vector más pequeño y colocandolo en el lugar que le corresponde en cada iteración, por otro lado el algoritmo shell consiste en la ordenación por intervalos de los números, los cuales en cada iteración irán decreciendo y también se evaluará si es más eficiente para un vector ordenado ascendente o descendente.
+
+Para su comprobación hemos traducido el pseudocódigo dado al lenguaje C, implementando las funciones necesarias para realizar las mediciones. Como continuación de lo anterior hemos procedido a verificar que los algoritmos funcionaran de forma satisfactoria, es decir, que no devuelvan distintos resultados con una función test.
+Y para acabar hemos procedido a realizar la medición de los tiempos de ejecución de los algoritmos para entradas de diferentes tamaños comprobando que estas mediciones son constantes y coherentes en el tiempo.
+
+
+
+
+
+- Máquina de medición:
+
+- Sistema Operativo: Linux 5.15.0-84-generic
+- Procesador: Intel(r) Core(tm) i5-8300H CPU @ 2.30GHz × 8
+- Memoria Ram: 8 GB DDR4
+- Tarjeta Gráfica: NVIDIA Corporation GP107M [GeForce GTX 1050 Mobile]
+- Arquitectura Hardware: x86_64
+- Kernel: #93~20.04.1-Ubuntu SMP 
+
+
+
+
+
+
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación por inserción aleatoria :
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n ^ 1.8: es la cota subestimada
+- n²: es la cota ajustada 
+- n ^ 2.2: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- #: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios normales
+
+
+       n           t(n)               t(n) / n^1.8         t(n) / n^2           t(n) / n^2.2       
+(*#) 500        245.770              0.00340708           0.00098308           0.00028366          
+    1000        974.000              0.00387756           0.00097400           0.00024466          
+    2000       3889.000              0.00444615           0.00097225           0.00021260          
+    4000      15478.000              0.00508167           0.00096738           0.00018415          
+    8000      61547.000              0.00580290           0.00096167           0.00015937          
+   16000     247160.000              0.00669210           0.00096547           0.00013929          
+   32000     976100.000              0.00758970           0.00095322           0.00011972
+   64000    3968274.0000	      0.00886089           0.00096881           0.00010592
+
+
+* Tabla número uno: Realización del estudio de la complejidad del primer algoritmo realizado.
+
+- Discusión: Hemos detectado que el array de 500 elementos tiene una medición anómala o anomalía en comparación con el resto de los elementos del array, debido a la cota ajustada que hemos obtenido la cual es superior a la constante que hemos considerado y también debido al tiempo de medición que hemos obtenido el cual es menor de 500 microsegundos. Teniendo en consideración que hemos repetido el experimento una centena de veces, hemos realizado la media de los tiempos obtenidos. 
+
+Por otro lado, la cota ajustada tiende a la constante 0.00096 lo que demuestra que su complejidad se va aproximando a O(n²).
+
+Para acabar también hemos observado que en la cota subestimada los valores de esta van siguiendo un crecimiento constante ya que en todo momento la cota tiende siempre a crecer, y con respecto a la cota sobrestimada hemos observado que va tendiendo a cero a medida que se va acercando al infinito por lo tanto va decreciendo progresivamente. 
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación por inserción aleatoria ascendente :
+
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n ^ 0.8: es la cota subestimada
+- n^1: es la cota ajustada
+- n ^ 1.2: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- #: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios ascendentes
+
+
+       n         t(n)                t(n) / n^0.8         t(n) / n^1           t(n) / n^1.2        
+(*)  500        2.560                0.01774451           0.00512000           0.00147732          
+(*) 1000        5.100                0.02030347           0.00510000           0.00128106          
+(*) 2000       10.260                0.02345975           0.00513000           0.00112179          
+(*) 4000       20.260                0.02660673           0.00506500           0.00096420          
+(*) 8000       40.770                0.03075167           0.00509625           0.00084456          
+(*)16000       82.560                0.03576627           0.00516000           0.00074443          
+(*)32000      165.110                0.04108217           0.00515969           0.00064803
+(*)64000      330.6800		      0.04725676	    0.00516687	  	  0.00056492
+
+
+* Tabla número dos: Realización del estudio de la complejidad del segundo algoritmo realizado.
+
+
+- Discusión: No hemos detectado anomalías aunque todas las cotas son menores de 500 microsegundos ya que todas sus cotas ajustadas estan en torno al valor que hemos establecido.  
+
+Por otro lado, la cota ajustada tiende a la constante 0.0051 lo que demuestra que su complejidad se va aproximando a O(n).
+
+Para acabar también hemos observado que en la cota subestimada los valores de esta van siguiendo un crecimiento constante ya que en todo momento la cota tiende siempre a crecer, y con respecto a la cota sobrestimada hemos observado que va tendiendo a cero a medida que se va acercando al infinito por lo tanto va decreciendo progresivamente.
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación por inserción aleatoria descendente :
+
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n ^ 1.8: es la cota subestimada
+- n²: es la cota ajustada 
+- n ^ 2.2: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- #: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios descendentes
+
+
+       n           t(n)              t(n) / n^1.8         t(n) / n^2           t(n) / n^2.2        
+(*)  500        481.670              0.00667734           0.00192668           0.00055592          
+    1000       1933.000              0.00769541           0.00193300           0.00048555          
+    2000       7658.000              0.00875511           0.00191450           0.00041865          
+    4000      30647.000              0.01006190           0.00191544           0.00036463          
+    8000     123628.000              0.01165614           0.00193169           0.00032012          
+   16000     489570.000              0.01325558           0.00191238           0.00027590          
+   32000    1958486.000              0.01522827           0.00191258           0.00024021
+   64000    7840495.0000	      0.01750731	    0.00191418           0.00020928
+
+
+* Tabla número tres: Realización del estudio de la complejidad del tercer algoritmo realizado.
+
+
+- Discusión: No hemos detectado anomalias ya que la cota ajustada de todos los vectores está en torno al valor que hemos establecido pero si que podemos observar que los arrays de 500, 1000 y 2000 elementos tienen un valor de tiempo menor a 500 microsegundos. 
+
+Por otro lado, la cota ajustada tiende a la constante 0.0019 lo que demuestra que su complejidad se va aproximando a O(n²).
+
+Para acabar también hemos observado que en la cota subestimada los valores de esta van siguiendo un crecimiento constante ya que en todo momento la cota tiende siempre a crecer, y con respecto a la cota sobrestimada hemos observado que va tendiendo a cero a medida que se va acercando al infinito por lo tanto va decreciendo progresivamente.
+
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación aleatoria por Shell:
+
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n^1: es la cota subestimada
+- n^1.195: es la cota ajustada 
+- n^1.33: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- #-: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios
+
+
+Ordenacion Shell Aleatorio
+	       n			  t(n)		           t(n) / n^1		   t(n) / n^1.195	   t(n) / n^1.33
+(*)	     500		         77.960		    0.15592000		    0.04640905		    0.02005588
+(*)	    1000		        181.850		    0.18185000		    0.04728390		    0.01860858
+(*)	    2000		        417.070		    0.20853500		    0.04736724		    0.01697614
+	    4000		        945.000		    0.23625000		    0.04687811		    0.01530002
+	    8000		       2215.000		    0.27687500		    0.04799336		    0.01426475
+	   16000		       5097.000		    0.31856250		    0.04823822		    0.01305675
+	   32000		      11541.000		    0.36065625		    0.04770778		    0.01175964
+	   64000		      26699.000		    0.41717188		    0.04820698		    0.01082121
+	  128000		      61823.000		    0.48299219		    0.04875668		    0.00996692
+
+
+* Tabla número cuatro: Realización del estudio de la complejidad del cuarto algoritmo realizado.
+
+- Discusión: No hemos detectado anomalias ya que la cota ajustada de todos los vectores está en torno al valor que hemos establecido pero si que podemos observar que los arrays de 500,1000, 2000 y 4000 elementos tienen un valor de tiempo menor a 500 microsegundos.
+
+Por otro lado, la cota ajustada tiende a la constante 0.047
+
+Por último, hemos comprobado que en la cota subestimada sus valores siguen un crecimiento constante ya que tiende siempre a crecer, y por otro lado hemos obtenido que la cota sobrestimada va tendiendo a cero a medida que se acerca al infinito por lo que esta va decreciendo progresivamente. 
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación ascendente por Shell:
+
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n^0.85(n): es la cota subestimada
+- n^1.02*log2(n): es la cota ajustada 
+- n^1.33: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- #-: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios
+
+
+Ordenacion Shell Ascendente
+	       n			  t(n)		          t(n) / n^0.85	  t(n) / n^1.02*log2(n)    t(n) / n^1.33
+(*)	     500		         22.090		    0.11222024		    0.00435169		    0.00568284
+(*)	    1000		         52.040		    0.14666865		    0.00454806		    0.00532522
+(*)	    2000		        113.020		    0.17671760		    0.00442655		    0.00460029
+(*)	    4000		        250.870		    0.21761946		    0.00444024		    0.00406171
+	    8000		        555.000		    0.26709545		    0.00447036		    0.00357424
+	   16000		       1213.000		    0.32386112		    0.00447294		    0.00310729
+	   32000		       2632.000		    0.38985975		    0.00446615		    0.00268186
+	   64000		       5673.000		    0.46618662		    0.00444958		    0.00229929
+	  128000		      12224.000		    0.55729464		    0.00444923		    0.00197072
+
+
+* Tabla número dos: Realización del estudio de la complejidad del primer algoritmo realizado.
+
+-  Discusión: No hemos detectado anomalias ya que la cota ajustada de todos los vectores está en torno al valor que hemos establecido pero si que podemos observar que los arrays de 500, 1000, 2000 y 4000 elementos tienen un valor de tiempo menor a 500 microsegundos.
+
+Por otro lado, la cota ajustada tiende a la constante 0.0044 lo que demuestra que su complejidad se va aproximando a O(nlog2(n)).
+
+
+Por último, hemos comprobado que en la cota subestimada sus valores siguen un crecimiento constante ya que tiende siempre a crecer, y por otro lado hemos obtenido que la cota sobrestimada va tendiendo a cero a medida que se acerca al infinito por lo que esta va decreciendo progresivamente. 
+
+
+Tabla de tiempos en microsegundos obtenida con Ordenación descendente por Shell:
+
+Índice:
+- n: el tamaño de los vectores
+- t(n): son los tiempos   
+- n^1: es la cota subestimada
+- n^1.13: es la cota ajustada 
+- n^1.33: es la cota sobrestimada
+- *: Indica que el tiempo de ejecución del vector fue menor que 500 ms y se hizo la media de los tiempos de ese vector ejecutado 100 veces.
+- -: Mediciones anómalas
+
+* Tiempos de ejecución para vectores aleatorios
+
+
+Ordenacion Shell Descendente
+	       n			  t(n)		           t(n) / n^1		   t(n) / n^1.13	    t(n) / n^1.33
+(*)	     500		         32.570		    0.06514000		    0.02903900		    0.00837891
+(*)	    1000		         73.080		    0.07308000		    0.02977135		    0.00747823
+(*)	    2000		        163.480		    0.08174000		    0.03042991		    0.00665418
+(*)	    4000		        360.540		    0.09013500		    0.03066378		    0.00583732
+	    8000		        794.000		    0.09925000		    0.03085523		    0.00511341
+	   16000		       1737.000		    0.10856250		    0.03084212		    0.00444959
+	   32000		       3746.000		    0.11706250		    0.03039123		    0.00381697
+	   64000		       8084.000		    0.12631250		    0.02996698		    0.00327648
+	  128000		      17249.000		    0.13475781		    0.02921572		    0.00278083
+
+
+* Tabla número dos: Realización del estudio de la complejidad del primer algoritmo realizado.
+
+-  Discusión: No hemos detectado anomalias ya que la cota ajustada de todos los vectores está en torno al valor que hemos establecido pero si que podemos observar que los arrays de 500, 1000, 2000 y 4000 elementos tienen un valor de tiempo menor a 500 microsegundos.
+
+Por otro lado, la cota ajustada tiende a la constante 0.030.
+
+Por último, hemos comprobado que en la cota subestimada sus valores siguen un crecimiento constante ya que tiende siempre a crecer, y por otro lado hemos obtenido que la cota sobrestimada va tendiendo a cero a medida que se acerca al infinito por lo que esta va decreciendo progresivamente. 
+
+
+
+
+- Conclusión: después de haber realizado todas las mediciones correspondientes hemos concluido que la ordenación por Shell es más eficiente que la ordenación por inserción. Esto es debido a la rapidez exhibida por este para los 3 casos estudiados, siendo ampliamente superior al algoritmo de ordenación por inserción en el caso más extremo.
+El algoritmo de inserción es más sencillo de desarrollar y aplicar pero es ineficiente con los vectores de grandes, al contrario que el shell que se desarrolla bien con todos los tamaños. Esto hace que compense utilizar el algoritmo shell pese a su implementación algo mas compleja.
+ 
+A todo lo expuesto anteriormente también podemos añadir que hubo algunas anomalías a lo largo de las primeras ejecuciones, pero a medida que fuimos haciendo ejecuciones de la tabla para tratar de depurar lo errores de la cota ajustada se fueron estabilizando debido a que como dijimos anteriormente debido al funcionamiento de los portátiles hay que ejecutar varias veces el algoritmo para poder obtener unas tablas lo más precisas posibles y con el menor número de anomalías. 
+
+
